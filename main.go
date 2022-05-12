@@ -12,6 +12,7 @@ func main() {
 	argslegend := map[string]bool{
 		"--info":         true,
 		"--list":         true,
+		"--count":        true,
 		"--list-genre":   true,
 		"--list-key":     true,
 		"--reg-id-genre": true,
@@ -30,10 +31,11 @@ func main() {
 		fmt.Println("\nUsage: anime-locator [--list-genre <genre-list>...] [--list-key <key-list>...]")
 		fmt.Println("\t\t     [--reg-id-genre <id> <genre-list>...]")
 		fmt.Println("\t\t     [--reg-id-date <id> <s_date> <e_date>]")
-		fmt.Println("\t\t     [--info <id>] [--list]")
+		fmt.Println("\t\t     [--info <id>] [--list] [--count]")
 
 		fmt.Println("\nOptions:")
 		fmt.Println("\t--list\t\t\t\t\tLists all Animes both registered and unregistered.")
+		fmt.Println("\t--count\t\t\t\t\tDisplays the total count of registered Animes.")
 		fmt.Println("\t--info <id>\t\t\t\tDisplays the information of an Anime according" + ind + "to the ID.\n")
 		fmt.Println("\t--list-genre <genre-list>\t\tLists and filters all Animes according to the" + ind + "genre-list.\n")
 		fmt.Println("\t--list-key <key-list>\t\t\tLists and filters all Animes according to the" + ind + "key-list.\n")
@@ -80,7 +82,12 @@ func main() {
 		}
 	}
 
-	// // Execution of all registry command arguments lexicographically
+	// Displaying the total count of Animes according to [--list] argument
+	if prev == "--count" {
+		fmt.Println("\nNumber of registered Anime in Library:", len(result))
+	}
+
+	// Execution of all registry command arguments lexicographically
 	locator.RegisterAnimeByDate(argsmap["--reg-id-date"], result)
 	locator.RegisterAnimeByGenre(argsmap["--reg-id-genre"], result)
 
